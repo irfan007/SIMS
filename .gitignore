@@ -6,3 +6,4 @@
 .conf~
 production.py
 local.py
+static_media
