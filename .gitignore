@@ -1,2 +1,7 @@
-.pyc
+*.pyc
+*.swp
+.ini~
+.ini
+.conf
+.conf~
 .production.py
