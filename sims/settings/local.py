@@ -10,4 +10,3 @@ DATABASES = {
 }
 
 ALLOWED_HOSTS = []
-
