@@ -74,21 +74,21 @@ class Student(models.Model):
     course_enrollment_mode = models.ForeignKey(CourseEnrollmentMode)
     student_name = models.CharField(max_length=100)
     registered_for = models.ForeignKey(ProgramType, related_name='ProgramType')
-    course_enrolled = models.ForeignKey(Course, related_name='Course')
-    # course_enrolled = ChainedForeignKey(
-    #     Course,
-    #     chained_field='registered_for',
-    #     chained_model_field='course_type',
-    #     show_all=False,
-    #     auto_choose=True
-    # )
-    course_specialization = models.ForeignKey(CourseSpecialization,
-                                              related_name='Specialization')
-    # course_specialization = ChainedForeignKey(
-    #     CourseSpecialization,
-    #     chained_field='course_enrolled',
-    #     chained_model_field='course_name'
-    # )
+    # course_enrolled = models.ForeignKey(Course, related_name='Course')
+    course_enrolled = ChainedForeignKey(
+        Course,
+        chained_field='registered_for',
+        chained_model_field='course_type',
+        show_all=False,
+        auto_choose=True
+    )
+    # course_specialization = models.ForeignKey(CourseSpecialization,
+    #                                           related_name='Specialization')
+    course_specialization = ChainedForeignKey(
+        CourseSpecialization,
+        chained_field='course_enrolled',
+        chained_model_field='course_name'
+    )
     batch = models.IntegerField(blank=True, null=True)
     father_name = models.CharField(max_length=100, blank=True, null=True)
     mother_name = models.CharField(max_length=100, blank=True, null=True)

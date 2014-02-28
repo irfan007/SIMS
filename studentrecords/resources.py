@@ -50,6 +50,8 @@ class EnrollmentTypeResource(resources.ModelResource):
 
 
 class StudentResource(resources.ModelResource):
+    course_enrolled = fields.Field(attribute="course_enrolled__course_name")
+    course_specialization = fields.Field(attribute="course_specialization__course_name")
     class Meta:
         model = Student
         import_id_fields = ('enrollment_id',)
