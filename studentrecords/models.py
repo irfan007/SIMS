@@ -6,7 +6,8 @@ from smart_selects.db_fields import ChainedForeignKey, GroupedForeignKey
 
 class StudyCenter(models.Model):
     """Model for Recording study center detail"""
-    center_name = models.CharField(max_length=200, unique=True)
+    center_name = models.CharField(max_length=200, unique=True,
+                                   primary_key=True)
     center_address = models.CharField(max_length=255, blank=True, null=True)
     center_phone = models.IntegerField(blank=True, null=True)
 
@@ -17,6 +18,7 @@ class StudyCenter(models.Model):
 class ProgramType(models.Model):
     """ Describe Course Type """
     program_type = models.CharField(max_length=20, unique=True,
+                                    primary_key=True,
                                     help_text="eg:- 'UG', 'PG'")
 
     def __unicode__(self):
@@ -26,7 +28,8 @@ class ProgramType(models.Model):
 class Course(models.Model):
     """Model Describing Course """
     course_type = models.ForeignKey(ProgramType)
-    course_name = models.CharField(max_length=50)
+    course_name = models.CharField(max_length=50, unique=True,
+                                   primary_key=True)
     course_duration = models.IntegerField(help_text='Course Duration in Years')
 
     def __unicode__(self):
@@ -36,8 +39,9 @@ class Course(models.Model):
 class CourseSpecialization(models.Model):
     """ Describe Course Specialization"""
     course_name = models.ForeignKey(Course)
-    specialization = models.CharField(max_length=50, help_text="eg:- 'Arts', \
-                                                            'Commerce', etc..")
+    specialization = models.CharField(max_length=50, unique=True,
+                                      primary_key=True,
+                                      help_text="eg:- 'Arts', 'Hindi', etc.")
 
     def __unicode__(self):
         return self.specialization
@@ -45,8 +49,9 @@ class CourseSpecialization(models.Model):
 
 class CourseEnrollmentMode(models.Model):
     """ Course Enrollment Mode """
-    mode = models.CharField(max_length=20, help_text="eg:- 'Yearly', \
-                                                        'Semester'")
+    mode = models.CharField(max_length=20, unique=True,
+                            primary_key=True,
+                            help_text="eg:- 'Yearly', 'Semester'")
 
     def __unicode__(self):
         return self.mode
@@ -54,7 +59,8 @@ class CourseEnrollmentMode(models.Model):
 
 class EnrollmentType(models.Model):
     """ Student Enrollment Type eg:-New, Re-Registration """
-    enrollment_type = models.CharField(max_length=30)
+    enrollment_type = models.CharField(max_length=30, unique=True,
+                                       primary_key=True)
 
     def __unicode__(self):
         return self.enrollment_type
@@ -62,27 +68,31 @@ class EnrollmentType(models.Model):
 
 class Student(models.Model):
     """Model Describing Student"""
-    enrollment_id = models.CharField(max_length=100)
+    enrollment_id = models.CharField(max_length=100, unique=True,
+                                     primary_key=True)
     enrollment_type = models.ForeignKey(EnrollmentType)
     course_enrollment_mode = models.ForeignKey(CourseEnrollmentMode)
     student_name = models.CharField(max_length=100)
     registered_for = models.ForeignKey(ProgramType, related_name='ProgramType')
-    couse_enrolled = ChainedForeignKey(
-        Course,
-        chained_field='registered_for',
-        chained_model_field='course_type',
-        show_all=False,
-        auto_choose=True
-    )
-    course_specialization = ChainedForeignKey(
-        CourseSpecialization,
-        chained_field='couse_enrolled',
-        chained_model_field='course_name'
-    )
-    batch = models.IntegerField()
+    course_enrolled = models.ForeignKey(Course, related_name='Course')
+    # course_enrolled = ChainedForeignKey(
+    #     Course,
+    #     chained_field='registered_for',
+    #     chained_model_field='course_type',
+    #     show_all=False,
+    #     auto_choose=True
+    # )
+    course_specialization = models.ForeignKey(CourseSpecialization,
+                                              related_name='Specialization')
+    # course_specialization = ChainedForeignKey(
+    #     CourseSpecialization,
+    #     chained_field='course_enrolled',
+    #     chained_model_field='course_name'
+    # )
+    batch = models.IntegerField(blank=True, null=True)
     father_name = models.CharField(max_length=100, blank=True, null=True)
     mother_name = models.CharField(max_length=100, blank=True, null=True)
-    dob = models.DateField()
+    dob = models.DateField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     study_center = models.ForeignKey(StudyCenter, related_name='rel')
 
@@ -92,7 +102,8 @@ class Student(models.Model):
 
 class DocumentType(models.Model):
     """ Document Type eg:- 'Marksheet', 'Degree' """
-    document_type = models.CharField(max_length=50)
+    document_type = models.CharField(max_length=50, unique=True,
+                                     primary_key=True)
 
     def __unicode__(self):
         return self.document_type

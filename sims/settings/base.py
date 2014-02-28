@@ -125,6 +125,8 @@ INSTALLED_APPS = (
     'south',
     'django_extensions',
     'smart_selects',
+    'import_export',
+    # 'simple_import',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
