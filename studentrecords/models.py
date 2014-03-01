@@ -116,7 +116,7 @@ class StudentAcademic(models.Model):
             ('III', 'Third Year'),
             ('IV', 'Fourth Year'),
             ('RA', 'Reappear'),)
-    student = models.ForeignKey(Student, related_name='Student')
+    student = models.OneToOneField(Student, related_name='Student')
     course_year = models.CharField(max_length=3, choices=YEAR)
     roll_number = models.IntegerField(blank=True, null=True)
     certificate_type = models.ForeignKey(DocumentType, blank=True, null=True)

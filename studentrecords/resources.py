@@ -24,9 +24,9 @@ class ProgramTypeResource(resources.ModelResource):
 
 
 class CourseResource(resources.ModelResource):
-    # course_type = fields.Field(column_name='Course Type', attribute="course_type", widget=widgets.ForeignKeyWidget)
-    # course_name = fields.Field(column_name='Course Name', attribute="course_name")
-    # course_duration = fields.Field(column_name='Course Duration', attribute="course_duration")
+    course_type = fields.Field(column_name='Course Type', attribute="course_type", widget=widgets.ForeignKeyWidget(ProgramType))
+    course_name = fields.Field(column_name='Course Name', attribute="course_name")
+    course_duration = fields.Field(column_name='Course Duration', attribute="course_duration", widget=widgets.IntegerWidget())
     
     class Meta:
         model = Course
@@ -54,15 +54,34 @@ class EnrollmentTypeResource(resources.ModelResource):
 
 
 class StudentResource(resources.ModelResource):
-    enrollment_id = fields.Field(attribute="enrollment_id")
-    enrollment_type = fields.Field(attribute="enrollment_type", widget=widgets.ForeignKeyWidget(EnrollmentType))
-    course_enrollment_mode = fields.Field(attribute="course_enrollment_mode", widget=widgets.ForeignKeyWidget(CourseEnrollmentMode))
-    course_enrolled = fields.Field(attribute="course_enrolled", widget=widgets.ForeignKeyWidget(Course))
-    course_specialization = fields.Field(attribute="course_specialization", widget=widgets.ForeignKeyWidget(CourseSpecialization))
+    enrollment_id = fields.Field(column_name='Enrollment ID', attribute="enrollment_id")
+    enrollment_type = fields.Field(column_name="Enrollment Type", attribute='enrollment_type', widget=widgets.ForeignKeyWidget(EnrollmentType))
+    course_enrollment_mode = fields.Field(column_name="Enrollment Mode", attribute="course_enrollment_mode", widget=widgets.ForeignKeyWidget(CourseEnrollmentMode))
+    student_name = fields.Field(column_name='Name', attribute="student_name")
+    registered_for = fields.Field(column_name='UG/PG', attribute="registered_for", widget=widgets.ForeignKeyWidget(ProgramType))
+    course_enrolled = fields.Field(column_name='Course', attribute="course_enrolled", widget=widgets.ForeignKeyWidget(Course))
+    course_specialization = fields.Field(column_name='Specialization', attribute="course_specialization", widget=widgets.ForeignKeyWidget(CourseSpecialization))
+    batch = fields.Field(column_name='Batch', attribute="batch", widget=widgets.IntegerWidget())
+    father_name = fields.Field(column_name='Father Name', attribute="father_name")
+    mother_name = fields.Field(column_name='Mother Name', attribute="mother_name")
+    dob = fields.Field(column_name='DOB', attribute="dob", widget=widgets.DateWidget())
+    address = fields.Field(column_name='Address', attribute="address")
+    study_center = fields.Field(column_name='Study Center', attribute="study_center", widget=widgets.ForeignKeyWidget(StudyCenter))
+    # course_year = fields.Field(column_name='Course Year', attribute="Student.course_year", widget=widgets.ForeignKeyWidget(StudentAcademic))
+    # roll_number = fields.Field(column_name='Roll No.', attribute="Student.roll_number", widget=widgets.ForeignKeyWidget(StudentAcademic))
 
     class Meta:
         model = Student
         import_id_fields = ('enrollment_id',)
+
+    # def export(self, queryset=None):
+    #     if queryset is None:
+    #         queryset = self.get_queryset()
+    #     headers = self.get_export_headers()
+    #     data = tablib.Dataset(headers=headers)
+    #     for obj in queryset.iterator():
+    #         data.append(self.export_resource(obj))
+    #     return data
 
 
 class DocumentTypeResource(resources.ModelResource):
