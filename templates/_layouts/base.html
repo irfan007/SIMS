@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIMS</title>
+    <style>
+        .wrapper {
+            width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 {
+            text-transform: uppercase;
+        }
+        div .form{
+            float: right;
+        }
+    </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+    {% block header %}
+    <div class="jumbotron">
+    <a href="/"><h1>SIMS</h1></a>
+    <p class="lead">Student Information Management Systems</p>
+    </div>
+
+    <div class="form">
+        {% block form %}
+        <form action="/student/search/name/" method="post" class="form-inline">
+            {% csrf_token %}
+            <input type="text" id="sname" name="sname" placeholder="Student Name" class="form-control">
+            <button type="button" onclick="submit();" class="btn btn-primary">
+                <span class=" glyphicon glyphicon-search"></span>
+                Search
+            </button>
+        </form>
+        <br>
+        {% endblock form %}
+    </div>
+    {% endblock header %}
+
+    {% block main %}
+        
+    {% endblock main %}
+    </div>
+</body>
+</html>

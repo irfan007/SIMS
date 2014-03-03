@@ -1,25 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SIMS</title>
-    <style>
-        .wrapper {
-            width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-        h1 {
-            text-transform: uppercase;
-        }
-    </style>
-    
-</head>
-<body>
-    <div class="wrapper">
-        <h1>Student Information Management Systems</h1>
-        <hr>
-        <a href="/admin">Login Here</a>
-    </div>
-</body>
-</html>
+{% extends "_layouts/base.html" %}
+
+{% block main %}
+    {% if user.is_authenticated %}
+    <a href="/admin/logout/"><button class="btn btn-danger">Logout!</button></a>
+    {% else %}    
+    <a href="/admin/"><button class="btn btn-primary">Login Here!</button></a>
+    {% endif %}
+{% endblock main %}

@@ -1,0 +1,18 @@
+{% extends "_layouts/base.html" %}
+
+{% block main %}
+{% if students %}
+    <table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Enrollment ID</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td> <a href="/student/detail?eid={{student.enrollment_id}}">{{student.student_name|title}}</a> </td>
+        <td> <a href="/student/detail?eid={{student.enrollment_id}}">{{student.enrollment_id}}</a> </td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock main %}

@@ -1,0 +1,39 @@
+{% extends "_layouts/base.html" %}
+
+
+{% block main %}
+    <table class="table table-striped">
+        <tr>
+            <td>Enrollment ID</td><td>{{student.enrollment_id}}</td>
+        </tr>
+        <tr>
+            <td>Enrollment Type</td><td>{{student.enrollment_type_id}}</td>
+        </tr>
+        <tr>
+            <td>Name</td><td>{{student.student_name}}</td>
+        </tr>
+        <tr>
+            <td>Father Name</td><td>{{student.father_name}}</td>
+        </tr>
+        <tr>
+            <td>Mother Name</td><td>{{student.mother_name}}</td>
+        </tr>
+        <tr>
+            <td>DOB</td><td>{{student.dob}}</td>
+        </tr>
+        <tr>
+            <td>Course Enrollment Mode</td><td>{{student.course_enrollment_mode_id}}</td>
+        </tr>
+        <tr>
+            <td>Course Enrolled</td><td>{{student.registered_for_id}} / {{student.batch}} / {{student.course_enrolled_id}} / {{student.course_specialization_id}}</td>
+        </tr>
+        <tr>
+            <td>Study Center</td><td>{{student.study_center_id}}</td>
+        </tr>
+
+
+    </table>
+    
+{% endblock main %}
+
+
