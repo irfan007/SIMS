@@ -66,6 +66,15 @@ class EnrollmentType(models.Model):
         return self.enrollment_type
 
 
+class DocumentType(models.Model):
+    """ Document Type eg:- 'Marksheet', 'Degree' """
+    document_type = models.CharField(max_length=50, unique=True,
+                                     primary_key=True)
+
+    def __unicode__(self):
+        return self.document_type
+
+
 class Student(models.Model):
     """Model Describing Student"""
     enrollment_id = models.CharField(max_length=100, unique=True,
@@ -74,7 +83,6 @@ class Student(models.Model):
     course_enrollment_mode = models.ForeignKey(CourseEnrollmentMode)
     student_name = models.CharField(max_length=100)
     registered_for = models.ForeignKey(ProgramType, related_name='ProgramType')
-    # course_enrolled = models.ForeignKey(Course, related_name='Course')
     course_enrolled = ChainedForeignKey(
         Course,
         chained_field='registered_for',
@@ -82,8 +90,6 @@ class Student(models.Model):
         show_all=False,
         auto_choose=True
     )
-    # course_specialization = models.ForeignKey(CourseSpecialization,
-    #                                           related_name='Specialization')
     course_specialization = ChainedForeignKey(
         CourseSpecialization,
         chained_field='course_enrolled',
@@ -100,15 +106,6 @@ class Student(models.Model):
         return self.student_name
 
 
-class DocumentType(models.Model):
-    """ Document Type eg:- 'Marksheet', 'Degree' """
-    document_type = models.CharField(max_length=50, unique=True,
-                                     primary_key=True)
-
-    def __unicode__(self):
-        return self.document_type
-
-
 class StudentAcademic(models.Model):
     """Batch Information """
     YEAR = (('I', 'First Year'),
@@ -116,7 +113,7 @@ class StudentAcademic(models.Model):
             ('III', 'Third Year'),
             ('IV', 'Fourth Year'),
             ('RA', 'Reappear'),)
-    student = models.OneToOneField(Student, related_name='Student')
+    student = models.ForeignKey(Student, related_name='Student')
     course_year = models.CharField(max_length=3, choices=YEAR)
     roll_number = models.IntegerField(blank=True, null=True)
     certificate_type = models.ForeignKey(DocumentType, blank=True, null=True)

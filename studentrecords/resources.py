@@ -8,7 +8,7 @@ from import_export import fields, resources, widgets
 class StudyCenterResource(resources.ModelResource):
     center_name = fields.Field(column_name='Center Name', attribute="center_name")
     center_address = fields.Field(column_name='Center Address', attribute="center_address")
-    center_phone = fields.Field(column_name='Center Phone', attribute="center_phone")
+    center_phone = fields.Field(column_name='Center Phone', attribute="center_phone", widget=widgets.IntegerWidget())
     class Meta:
         model = StudyCenter
         fields = ('center_name','center_address','center_phone')
@@ -34,6 +34,8 @@ class CourseResource(resources.ModelResource):
 
 
 class CourseSpecializationResource(resources.ModelResource):
+    course_name = fields.Field(column_name='Course Name', attribute="course_name", widget=widgets.ForeignKeyWidget(Course))
+    specialization = fields.Field(column_name='Specialization', attribute="specialization")
     class Meta:
         model = CourseSpecialization
         import_id_fields = ('specialization',)
@@ -67,21 +69,13 @@ class StudentResource(resources.ModelResource):
     dob = fields.Field(column_name='DOB', attribute="dob", widget=widgets.DateWidget())
     address = fields.Field(column_name='Address', attribute="address")
     study_center = fields.Field(column_name='Study Center', attribute="study_center", widget=widgets.ForeignKeyWidget(StudyCenter))
-    # course_year = fields.Field(column_name='Course Year', attribute="Student.course_year", widget=widgets.ForeignKeyWidget(StudentAcademic))
-    # roll_number = fields.Field(column_name='Roll No.', attribute="Student.roll_number", widget=widgets.ForeignKeyWidget(StudentAcademic))
 
     class Meta:
         model = Student
         import_id_fields = ('enrollment_id',)
 
-    # def export(self, queryset=None):
-    #     if queryset is None:
-    #         queryset = self.get_queryset()
-    #     headers = self.get_export_headers()
-    #     data = tablib.Dataset(headers=headers)
-    #     for obj in queryset.iterator():
-    #         data.append(self.export_resource(obj))
-    #     return data
+    def before_save_instance(self, instance, dry_run):
+        print 'before save instance'
 
 
 class DocumentTypeResource(resources.ModelResource):
@@ -90,3 +84,17 @@ class DocumentTypeResource(resources.ModelResource):
     class Meta:
         model = DocumentType
         import_id_fields = ('document_type',)
+
+
+class StudentAcademicResource(resources.ModelResource):
+    student = fields.Field(column_name="Enrollment ID", attribute="student", widget=widgets.ForeignKeyWidget(Student))
+    course_year = fields.Field(column_name="Course Year", attribute="course_year")
+    roll_number = fields.Field(column_name="Roll Number", attribute="roll_number", widget=widgets.IntegerWidget())
+    certificate_type = fields.Field(column_name="Certificate Type", attribute="certificate_type", widget=widgets.ForeignKeyWidget(DocumentType))
+    serial_number = fields.Field(column_name="Certificate Number", attribute="serial_number", widget=widgets.IntegerWidget())
+    session_fee = fields.Field(column_name="Session Fee", attribute="session_fee", widget=widgets.IntegerWidget())
+    ammount_paid = fields.Field(column_name="Fee Paid", attribute="ammount_paid", widget=widgets.IntegerWidget())
+
+    class Meta:
+        model = StudentAcademic
+        exclude = (id,)

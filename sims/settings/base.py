@@ -161,3 +161,20 @@ LOGGING = {
         },
     }
 }
+
+
+
+# Reorder Apps in Admin
+ADMIN_REORDER = (
+    ("studentrecords", ("", "ProgramType", "Course", "CourseSpecialization",
+                        "CourseEnrollmentMode", "EnrollmentType", "DocumentType", "Student",
+                        "StudentAcademic")),
+)
+
+
+
+
+
+
+
+

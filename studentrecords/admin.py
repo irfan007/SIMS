@@ -5,7 +5,8 @@ from .models import StudyCenter, ProgramType, Course, CourseSpecialization, \
 from .resources import StudyCenterResource, ProgramTypeResource, \
       CourseResource, CourseSpecializationResource, \
       CourseEnrollmentModeResource, StudentResource, \
-      EnrollmentTypeResource, DocumentTypeResource
+      EnrollmentTypeResource, DocumentTypeResource, \
+      StudentAcademicResource
       
 
 from import_export.admin import ImportExportModelAdmin
@@ -72,6 +73,10 @@ class StudentAdmin(ImportExportModelAdmin):
           }),
     )
 
+class StudentAcademicAdmin(ImportExportMixin, admin.ModelAdmin):
+  resource_class = StudentAcademicResource
+  # raw_id_fields = ('student',)
+
 
 admin.site.register(StudyCenter, StudyCenterAdmin)
 admin.site.register(ProgramType, ProgramTypeAdmin)
@@ -80,4 +85,5 @@ admin.site.register(CourseSpecialization, CourseSpecializationAdmin)
 admin.site.register(CourseEnrollmentMode, CourseEnrollmentModeAdmin)
 admin.site.register(EnrollmentType, EnrollmentTypeAdmin)
 admin.site.register(Student, StudentAdmin)
+admin.site.register(StudentAcademic, StudentAcademicAdmin)
 admin.site.register(DocumentType, DocumentTypeAdmin)
