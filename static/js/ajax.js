@@ -33,9 +33,9 @@ jQuery.ajaxSetup({
 });
 
  
-$('button').click(function(e){
+$(".btn").on("click", function(e){
 
-    e.preventDefault();
+    // e.preventDefault();
     var eid = this.id;
     // alert(eid); 
 
