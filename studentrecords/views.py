@@ -28,5 +28,7 @@ def student_detail(request, eid=None):
     eid = request.GET.get("eid", None)
     if eid is not None:
         student = Student.objects.get(pk=str(eid))
+        if request.is_ajax():
+            return render_to_response('student_detail_ajax.html', {'student': student}, ci)
         return render_to_response('student_detail.html', {'student':student}, ci)
     return HttpResponse('Not Found')

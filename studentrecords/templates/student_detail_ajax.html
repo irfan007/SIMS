@@ -1,10 +1,4 @@
-{% extends "_layouts/base.html" %}
-{% block header %}
-    {{block.super}}
-    <input type="button" value="&#8592;  Back" onclick="window.history.back()" class="btn btn-primary" /> 
-{% endblock header %}
 
-{% block main %}
     <table class="table table-striped">
         <tr>
             <td>Enrollment ID</td><td>{{student.enrollment_id}}</td>
@@ -54,10 +48,7 @@
         <tr>
             <td>Study Center</td><td>{{student.study_center_id}}</td>
         </tr>
-
-
     </table>
-    
-{% endblock main %}
+
 
 

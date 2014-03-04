@@ -9,10 +9,41 @@
     </tr>
     {% for student in students %}
     <tr>
-        <td> <a href="/student/detail?eid={{student.enrollment_id}}">{{student.student_name|title}}</a> </td>
-        <td> <a href="/student/detail?eid={{student.enrollment_id}}">{{student.enrollment_id}}</a> </td>
+        <td>
+            <a href="/student/detail?eid={{student.enrollment_id}}">{{student.student_name|title}}</a>
+        </td>
+        <td>
+            
+                <button class="btn btn-link" id="{{student.enrollment_id}}" data-toggle="modal" data-target="#myModal">
+                    {{student.enrollment_id}}
+                </button>
+        </td>
     </tr>
     {% endfor %}
     </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Student Details:</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 {% endif %}
 {% endblock main %}
