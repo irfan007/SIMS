@@ -8,7 +8,7 @@ from import_export import fields, resources, widgets
 class StudyCenterResource(resources.ModelResource):
     center_name = fields.Field(column_name='Center Name', attribute="center_name")
     center_address = fields.Field(column_name='Center Address', attribute="center_address")
-    center_phone = fields.Field(column_name='Center Phone', attribute="center_phone", widget=widgets.IntegerWidget())
+    center_phone = fields.Field(column_name='Center Phone', attribute="center_phone")
     class Meta:
         model = StudyCenter
         fields = ('center_name','center_address','center_phone')

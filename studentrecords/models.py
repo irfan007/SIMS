@@ -9,7 +9,7 @@ class StudyCenter(models.Model):
     center_name = models.CharField(max_length=200, unique=True,
                                    primary_key=True)
     center_address = models.CharField(max_length=255, blank=True, null=True)
-    center_phone = models.IntegerField(blank=True, null=True)
+    center_phone = models.CharField(max_length=100, blank=True, null=True)
 
     def __unicode__(self):
         return self.center_name

@@ -66,12 +66,13 @@ $(".more").on("click", function(e)
                 url: "/student/search/name/",
                 data: {'sname': query, 'offset': offset},
                 success: function(data){
-                        if (data != ""){
-                        $("#offset").val(parseInt(offset)+5)
-                        $( "tbody").append( data );
+                        alert(data)
+                        if (data !== ""){
+                            $("#offset").val(parseInt(offset)+5)
+                            $( "tbody").append( data );
                         }
                         else {
-                            alert("No More Result")
+                            alert("No More Result");
                         }
                         },
                 });
