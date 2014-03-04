@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from studentrecords.models import Student
 
@@ -11,16 +12,31 @@ def search(request, sname=None):
     return render_to_response('index.html', ci)
 
 
-def search_by_name(request, sname=None):
+def search_by_name(request):
     ci = RequestContext(request)
-    sname = request.POST.get('sname', '')
+    query = request.POST.get('sname', '')
+    offset = request.POST.get('offset', 0)
+    limit = request.POST.get('limit', 5)
+
+
     if request.method == "POST":
-        if sname:
-            students = Student.objects.all().filter(student_name__icontains=sname)
+        if request.is_ajax():
+            query = request.POST.get('sname', '')
+            offset = int(request.POST.get('offset', 0))
+
+            students = Student.objects.all().filter(Q(student_name__icontains=query)
+                |Q(enrollment_id__icontains=query))[offset:offset+5]
+
+            kwargs = {'students':students, 'query': query}
+            return render_to_response('load_ajax.html',kwargs)
+        if query:
+            students = Student.objects.all().filter(Q(student_name__icontains=query)
+                |Q(enrollment_id__icontains=query))[offset:limit]
         else:
             students = ''
-        return render_to_response('search_by_name_result.html', {'students':students}, ci)
-    return render_to_response('search_by_name_result.html', {'students':''}, ci)
+        kwargs = {'students':students, 'offset': offset+5, 'query': query}
+        return render_to_response('search_by_name_result.html', kwargs, ci)
+    return render_to_response('search_by_name_result.html', {'students':'', 'offset': offset, 'limit': limit, 'query': query}, ci)
 
 
 def student_detail(request, eid=None):

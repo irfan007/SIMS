@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$(document).ready(function()
+{
 
 function getCookie(name) {
     var cookieValue = null;
@@ -33,13 +34,13 @@ jQuery.ajaxSetup({
 });
 
  
-$(".btn").on("click", function(e){
-
+$("table").delegate(".detail","click", function(e)
+{
     // e.preventDefault();
     var eid = this.id;
-    // alert(eid); 
 
-    if(eid != ""){
+    if(eid != "")
+    {
     $.ajax({
             cache: false,
             url: "/student/detail/?eid="+eid+"/",
@@ -50,9 +51,30 @@ $(".btn").on("click", function(e){
                     $( ".modal-body").html("");
                     $( ".modal-body").append( data );
                     },
-                
-
-    });
-}
+            });
+    }
 });
+
+$(".more").on("click", function(e)
+    {
+        var query = $("#query").val()
+        var offset = $("#offset").val()
+        if(offset != "")
+        {
+        $.ajax({
+                type: "POST",
+                url: "/student/search/name/",
+                data: {'sname': query, 'offset': offset},
+                success: function(data){
+                        if (data != ""){
+                        $("#offset").val(parseInt(offset)+5)
+                        $( "tbody").append( data );
+                        }
+                        else {
+                            alert("No More Result")
+                        }
+                        },
+                });
+        }
+    });
 });

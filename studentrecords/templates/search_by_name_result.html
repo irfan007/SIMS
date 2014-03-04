@@ -2,7 +2,7 @@
 
 {% block main %}
 {% if students %}
-    <table class="table table-striped">
+    <table class="table table-striped" id="result">
     <tr>
         <th>Name</th>
         <th>Enrollment ID</th>
@@ -13,14 +13,20 @@
             <a href="/student/detail?eid={{student.enrollment_id}}">{{student.student_name|title}}</a>
         </td>
         <td>
-            
-                <button class="btn btn-link" id="{{student.enrollment_id}}" data-toggle="modal" data-target="#myModal">
-                    {{student.enrollment_id}}
-                </button>
+        <button class="detail btn btn-link" id="{{student.enrollment_id}}" data-toggle="modal" data-target="#myModal">
+                {{student.enrollment_id}}
+        </button>
         </td>
     </tr>
     {% endfor %}
     </table>
+
+<div id="loading">
+    <input type="hidden" value="{{query}}" id="query">
+    <input type="hidden" value="{{offset}}" id="offset">
+    <button type="button" class="more btn btn-default" id="{{offset}}" >Load More...</button>
+</div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

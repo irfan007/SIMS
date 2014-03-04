@@ -30,7 +30,7 @@ class Course(models.Model):
     course_type = models.ForeignKey(ProgramType)
     course_name = models.CharField(max_length=50, unique=True,
                                    primary_key=True)
-    course_duration = models.IntegerField(help_text='Course Duration in Years')
+    course_duration = models.IntegerField(help_text='Course Duration in Months')
 
     def __unicode__(self):
         return self.course_name

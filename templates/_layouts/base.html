@@ -22,6 +22,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/js/ajax.js"></script>
+
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -36,7 +37,7 @@
         {% block form %}
         <form action="/student/search/name/" method="post" class="form-inline">
             {% csrf_token %}
-            <input type="text" id="sname" name="sname" placeholder="Student Name" class="form-control">
+            <input type="text" id="sname" name="sname" placeholder="Name or Enrollment ID" class="form-control">
             <button type="button" onclick="submit();" class="btn btn-primary">
                 <span class=" glyphicon glyphicon-search"></span>
                 Search

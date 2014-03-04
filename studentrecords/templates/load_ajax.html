@@ -1,0 +1,12 @@
+    {% for student in students %}
+    <tr>
+        <td>
+            <a href="/student/detail?eid={{student.enrollment_id}}">{{student.student_name|title}}</a>
+        </td>
+        <td>
+        <button class="detail btn btn-link" id="{{student.enrollment_id}}" data-toggle="modal" data-target="#myModal">
+                {{student.enrollment_id}}
+        </button>
+        </td>
+    </tr>
+    {% endfor %}
