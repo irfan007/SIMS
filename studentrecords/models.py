@@ -17,7 +17,7 @@ class StudyCenter(models.Model):
 
 class ProgramType(models.Model):
     """ Describe Course Type """
-    program_type = models.CharField(max_length=20, unique=True,
+    program_type = models.CharField(max_length=100, unique=True,
                                     primary_key=True,
                                     help_text="eg:- 'UG', 'PG'")
 
@@ -28,7 +28,7 @@ class ProgramType(models.Model):
 class Course(models.Model):
     """Model Describing Course """
     course_type = models.ForeignKey(ProgramType)
-    course_name = models.CharField(max_length=50, unique=True,
+    course_name = models.CharField(max_length=255, unique=True,
                                    primary_key=True)
     course_duration = models.IntegerField(help_text='Course Duration in Months')
 
@@ -39,7 +39,7 @@ class Course(models.Model):
 class CourseSpecialization(models.Model):
     """ Describe Course Specialization"""
     course_name = models.ForeignKey(Course)
-    specialization = models.CharField(max_length=50, unique=True,
+    specialization = models.CharField(max_length=100, unique=True,
                                       primary_key=True,
                                       help_text="eg:- 'Arts', 'Hindi', etc.")
 
@@ -49,7 +49,7 @@ class CourseSpecialization(models.Model):
 
 class CourseEnrollmentMode(models.Model):
     """ Course Enrollment Mode """
-    mode = models.CharField(max_length=20, unique=True,
+    mode = models.CharField(max_length=100, unique=True,
                             primary_key=True,
                             help_text="eg:- 'Yearly', 'Semester'")
 
@@ -59,7 +59,7 @@ class CourseEnrollmentMode(models.Model):
 
 class EnrollmentType(models.Model):
     """ Student Enrollment Type eg:-New, Re-Registration """
-    enrollment_type = models.CharField(max_length=30, unique=True,
+    enrollment_type = models.CharField(max_length=100, unique=True,
                                        primary_key=True)
 
     def __unicode__(self):
@@ -68,7 +68,7 @@ class EnrollmentType(models.Model):
 
 class DocumentType(models.Model):
     """ Document Type eg:- 'Marksheet', 'Degree' """
-    document_type = models.CharField(max_length=50, unique=True,
+    document_type = models.CharField(max_length=100, unique=True,
                                      primary_key=True)
 
     def __unicode__(self):
