@@ -10,7 +10,7 @@ PROJECT_ROOT = here("../..")
 # folder(s) we pass it starting at the parent directory of the current file.
 root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
-
+DEBUG=True
 ADMINS = (
     ('Kuldeep Rishi', 'kuldeepkrishi@gmail.com'),
 )
@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'studentrecords',
-    'south',
+    #'south',
     'django_extensions',
     'smart_selects',
     'import_export',

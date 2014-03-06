@@ -3,4 +3,9 @@ from base import *
 try:
     from local import *
 except ImportError:
-    from production import *
+    try:
+	from production import *
+    except ImportError:
+	pass
+		
+	

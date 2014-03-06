@@ -7,3 +7,9 @@
 production.py
 local.py
 static_media
+bin/*
+include/*
+lib/*
+*~
+.git
+

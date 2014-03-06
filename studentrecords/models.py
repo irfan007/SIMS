@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import Sum
-
 from smart_selects.db_fields import ChainedForeignKey, GroupedForeignKey
 
 
